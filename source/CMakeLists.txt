@@ -85,7 +85,8 @@ else()
 endif()
 
 if(UNIX)
-    list(APPEND PLATFORM_LIBS pthread)
+	# fix android build
+    # list(APPEND PLATFORM_LIBS pthread)
     find_library(LIBRT rt)
     if(LIBRT)
         list(APPEND PLATFORM_LIBS rt)
@@ -702,7 +703,8 @@ if(X265_LATEST_TAG)
     endforeach()
     if(PLIBLIST)
         # blacklist of libraries that should not be in Libs.private
-        list(REMOVE_ITEM PLIBLIST "-lc" "-lpthread" "-lmingwex" "-lmingwthrd"
+		# remove -lpthread to fix android build
+        list(REMOVE_ITEM PLIBLIST "-lc" "-lmingwex" "-lmingwthrd"
             "-lmingw32" "-lmoldname" "-lmsvcrt" "-ladvapi32" "-lshell32"
             "-luser32" "-lkernel32")
         string(REPLACE ";" " " PRIVATE_LIBS "${PLIBLIST}")
